@@ -28,6 +28,12 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{aa86e47f-445f-4440-9a76-173363b46c4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{4730c5bf-afe5-44f3-9157-8e9132c7f7df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\SceneCategory">
+      <UniqueIdentifier>{11ae2778-2961-4a85-9faf-5c494ea308a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -48,6 +54,18 @@
     <ClInclude Include="Shader.h">
       <Filter>Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameScene.h">
+      <Filter>Scene\SceneCategory</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>Scene\SceneCategory</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginScene.h">
+      <Filter>Scene\SceneCategory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -67,6 +85,18 @@
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="InGameScene.cpp">
+      <Filter>Scene\SceneCategory</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyScene.cpp">
+      <Filter>Scene\SceneCategory</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginScene.cpp">
+      <Filter>Scene\SceneCategory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

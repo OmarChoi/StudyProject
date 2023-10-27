@@ -15,7 +15,7 @@ public:
 
 	void BuildObject();
 private:
-
+	bool m_chatMode;
 private:
 	Shader* m_shader = NULL;
 	GameObjectManager* m_objectMgr = NULL;

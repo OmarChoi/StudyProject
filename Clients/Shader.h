@@ -11,9 +11,16 @@ public:
 
 	void Render();
 
-	template <typename T>
+	template <typename OBJ>
 	void BuildObject() {
-		T* objects = new T();
+		OBJ* objects = new OBJ();
+		objects->BuildObject();
+		m_objects.emplace_back(objects);
+	}
+
+	template <typename OBJ>
+	void AddObjects(int x, int y, int size) {
+		OBJ* objects = new OBJ();
 		objects->BuildObject();
 		m_objects.emplace_back(objects);
 	}

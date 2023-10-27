@@ -2,6 +2,14 @@
 #include "GameFrameWork.h"
 #include "GameObject.h"
 #include "Shader.h"
+#include <string>
+
+void renderBitmapString(float x, float y, void* font, const std::string& text) {
+	glRasterPos2f(x, y);
+	for (char c : text) {
+		glutBitmapCharacter(font, c);
+	}
+}
 
 GameFrameWork::GameFrameWork()
 {
@@ -23,8 +31,8 @@ void GameFrameWork::RenderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
-
 	m_shader->Render();
+	renderBitmapString(0, 10, GLUT_BITMAP_TIMES_ROMAN_24, "Hello, OpenGL!");
 }
 
 void GameFrameWork::BuildObject()
@@ -34,6 +42,7 @@ void GameFrameWork::BuildObject()
 
 void GameFrameWork::KeyInput(unsigned char key, KEY_STATE state)
 {
+	// Scene 생성 후 Scene에 따른 KeyInput 함수 호출하게 설정
 	switch (state)
 	{
 	case KS_DOWN:

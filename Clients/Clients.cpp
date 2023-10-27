@@ -43,12 +43,14 @@ int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowPosition(g_WindowSizeX / 2, g_WindowSizeY / 2);
+	glutInitWindowPosition(g_WindowSizeX / 4, g_WindowSizeY / 4);
 	glutInitWindowSize(g_WindowSizeX, g_WindowSizeY);
 	glutCreateWindow("Studying_Client");
 
+	glOrtho(0, g_WindowSizeX, 0, g_WindowSizeY, -1, 1);
 	glewInit();
 	g_GameFrameWork = new GameFrameWork();
+
 
 	glutDisplayFunc(RenderScene);
 	glutIdleFunc(Idle);
@@ -62,4 +64,3 @@ int main(int argc, char **argv)
 	delete g_GameFrameWork;
 	return 0;
 }
-
