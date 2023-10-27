@@ -2,7 +2,6 @@
 #include "Shader.h"
 #include "GameObject.h"
 #include <fstream>
-#include <string>
 
 #include "Dependencies\glew.h"
 
@@ -23,7 +22,7 @@ Shader::~Shader()
 void Shader::Render()
 {
 	for (auto& p : m_objects) {
-		// p->UpdateTransform();
+		p->UpdateTransform();
 		p->Render(m_shaderIndex);
 	}
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObjectManager.h"
 
-class Shader;
+class Scene;
 class GameFrameWork
 {
 public:
@@ -12,12 +12,13 @@ public:
 	void KeyInput(unsigned char key, KEY_STATE state);
 	void MouseInput(int button, int state, int x, int y);
 	void RenderScene();
-
 	void BuildObject();
-private:
-	bool m_chatMode;
-private:
-	Shader* m_shader = NULL;
-	GameObjectManager* m_objectMgr = NULL;
-};
 
+private:
+	array<Scene*, 3> m_scene;
+	SCENE_TYPE m_sceneType;
+
+public:
+	void SetSceneType(SCENE_TYPE st) { m_sceneType = st; }
+	SCENE_TYPE GetSceneType() { return m_sceneType; }
+};

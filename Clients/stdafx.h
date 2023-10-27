@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <array>
+#include <string>
 
 #include "targetver.h"
 #include "Dependencies/glew.h"
@@ -116,6 +117,13 @@ enum KEY_STATE : char
 	KS_UP
 };
 
+enum SCENE_TYPE 
+{
+	ST_LOGIN,
+	ST_LOBBY,
+	ST_INGAME
+};
+
 enum DIRETION
 {
 	DIR_LEFT,
@@ -123,6 +131,3 @@ enum DIRETION
 	DIR_RIGHT,
 	DIR_DOWN
 };
-
-array<int, 4> deltaX{ -1, 0, 1, 0 };
-array<int, 4> deltaY{ 0, 1, 0, -1 };

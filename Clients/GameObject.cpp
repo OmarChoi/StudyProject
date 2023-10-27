@@ -1,6 +1,13 @@
 #include "stdafx.h"
 #include "GameObject.h"
 
+GameObject::GameObject()
+{
+	m_size = 40;
+	m_pos.x = 0; m_pos.y = 0;
+	m_color.x = 1.0f;
+}
+
 GameObject::GameObject(XMFLOAT2 pos, float size)
 {
 	m_pos = pos;
@@ -40,6 +47,10 @@ void SquareObject::BuildObject()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(rect), rect, GL_STATIC_DRAW);
 }
 
+void SquareObject::UpdateTransform()
+{
+}
+
 SquareObject::SquareObject()
 {
 	m_size = 40;
@@ -59,6 +70,7 @@ void SquareObject::Render(GLuint ShaderIndex)
 	glUniform1f(glGetUniformLocation(ShaderIndex, "u_Size"), m_size);
 	glUniform4f(glGetUniformLocation(ShaderIndex, "u_Color"),
 		m_color.x, m_color.y, m_color.z, m_color.a);
+	glUniform2f(glGetUniformLocation(ShaderIndex, "u_Transform"), m_pos.x / g_WindowSizeX, m_pos.y / g_WindowSizeX);
 
 	int attribPosition = glGetAttribLocation(ShaderIndex, "a_Position");
 	glEnableVertexAttribArray(attribPosition);

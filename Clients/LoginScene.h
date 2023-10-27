@@ -1,5 +1,7 @@
 #pragma once
-class LoginScene
+#include "Scene.h"
+
+class LoginScene : public Scene
 {
 };
 

@@ -25,6 +25,10 @@ public:
 		m_objects.emplace_back(objects);
 	}
 
+	void AddObjects(GameObject* obj) {
+		m_objects.emplace_back(obj);
+	}
+
 private:
 	void SetShader();
 	GLuint CompileShaders(char* filenameVS, char* filenameFS);
