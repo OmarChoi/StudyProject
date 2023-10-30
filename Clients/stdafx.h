@@ -131,3 +131,11 @@ enum DIRETION
 	DIR_RIGHT,
 	DIR_DOWN
 };
+
+struct ObjectData
+{
+	XMFLOAT2 m_pos;
+	float m_size;
+	XMFLOAT4 m_color;
+	CHARACTER_TYPE m_type;
+};

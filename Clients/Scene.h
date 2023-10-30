@@ -9,6 +9,10 @@ public:
 	virtual void RenderScene();
 	virtual void BuildObject();
 
+	template <typename OBJ>
+	void AddObjects(int x, int y) {
+		m_shader->AddObjects<OBJ>(x, y);
+	}
 protected:
 	Shader* m_shader = NULL;
 };

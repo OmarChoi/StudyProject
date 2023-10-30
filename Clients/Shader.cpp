@@ -7,7 +7,8 @@
 
 Shader::Shader()
 {
-	SetShader();
+	// SetShader();
+	// CreateVertexBuffer();
 }
 
 Shader::~Shader()
@@ -19,11 +20,31 @@ Shader::~Shader()
 	}
 }
 
+void Shader::Draw(ObjectData data)
+{
+
+	glUseProgram(m_shaderIndex);
+
+	glUniform1f(glGetUniformLocation(m_shaderIndex, "u_Size"), data.m_size);
+	glUniform4f(glGetUniformLocation(m_shaderIndex, "u_Color"),
+		data.m_color.x, data.m_color.y, data.m_color.z, data.m_color.a);
+	glUniform2f(glGetUniformLocation(m_shaderIndex, "u_Transform"), data.m_pos.x / g_WindowSizeX, data.m_pos.y / g_WindowSizeX);
+
+	int attribPosition = glGetAttribLocation(m_shaderIndex, "a_Position");
+	glEnableVertexAttribArray(attribPosition);
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
+	glVertexAttribPointer(attribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
+
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glDisableVertexAttribArray(attribPosition);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 void Shader::Render()
 {
 	for (auto& p : m_objects) {
-		p->UpdateTransform();
-		p->Render(m_shaderIndex);
+		ObjectData data = p->GetObjectData();
+		Draw(data);
 	}
 }
 
@@ -49,6 +70,25 @@ bool Shader::ReadFile(char* filename, std::string* target)
 		target->append("\n");
 	}
 	return true;
+}
+
+void Shader::CreateVertexBuffer()
+{
+	float rect[]
+		=
+	{
+		-1.f / g_WindowSizeX, -1.f / g_WindowSizeY, 0.f,
+		-1.f / g_WindowSizeX, 1.f / g_WindowSizeY, 0.f,
+		1.f / g_WindowSizeX, 1.f / g_WindowSizeY, 0.f,
+
+		-1.f / g_WindowSizeX, -1.f / g_WindowSizeY, 0.f,
+		1.f / g_WindowSizeX, 1.f / g_WindowSizeY, 0.f,
+		1.f / g_WindowSizeX, -1.f / g_WindowSizeY, 0.f,
+	};
+
+	glGenBuffers(1, &m_vertexBufferObject);
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(rect), rect, GL_STATIC_DRAW);
 }
 
 GLuint Shader::CompileShaders(char* filenameVS, char* filenameFS)

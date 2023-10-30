@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "InGameScene.h"
 #include "Shader.h"
+#include "StandardShader.h"
 #include "GameObject.h"
 #include "Player.h"
 
@@ -9,7 +10,7 @@ array<int, 4> deltaY{ 0, 5, 0, -5 };
 
 InGameScene::InGameScene()
 {
-	m_shader = new Shader();
+	m_shader = new StandardShader();
 	m_chatMode = false;
 	m_myCharacter = nullptr;
 }
@@ -42,6 +43,11 @@ void InGameScene::KeyInput(unsigned char key, KEY_STATE state)
 
 			// attack
 		case 'a' | 'A':
+		{
+			int randX = 2.f * (((float)rand() / (float)RAND_MAX) - 0.5f) * g_WindowSizeX;
+			int randY = 2.f * (((float)rand() / (float)RAND_MAX) - 0.5f) * g_WindowSizeY;
+			AddObjects<SquareObject>(randX, randY);
+		}
 			break;
 
 			// Escape
@@ -103,7 +109,6 @@ void InGameScene::RenderScene()
 void InGameScene::BuildObject()
 {
 	SquareObject* objects = new SquareObject();
-	objects->BuildObject();
 	m_myCharacter = static_cast<GameObject*>(objects);
 	m_shader->AddObjects(objects);
 }

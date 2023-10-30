@@ -10,9 +10,8 @@ public:
 	XMFLOAT2 GetPos();
 	float GetSize();
 
-	virtual void BuildObject() {};
+	virtual ObjectData GetObjectData() = 0;
 	virtual void UpdateTransform() {};
-	virtual void Render(GLuint ShaderIndex) {};
 
 	void SetSize(float size) { m_size = size; }
 	void SetPosition(XMFLOAT2 pos) { m_pos = pos; }
@@ -35,7 +34,6 @@ class SquareObject : public GameObject
 {
 public:
 	SquareObject();
-	virtual void BuildObject();
+	virtual ObjectData GetObjectData();
 	virtual void UpdateTransform();
-	virtual void Render(GLuint ShaderIndex);
 };

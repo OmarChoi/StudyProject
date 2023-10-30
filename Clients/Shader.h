@@ -3,13 +3,18 @@ class GameObject;
 
 class Shader
 {
+protected:
 	vector<GameObject*> m_objects;
 	GLuint m_shaderIndex;
+
+	GLuint m_vertexBufferObject;
+	GLuint m_TransformBufferObject;
 public:
 	Shader();
-	~Shader();
+	virtual ~Shader();
 
 	void Render();
+	virtual void Draw(ObjectData data);
 
 	template <typename OBJ>
 	void BuildObject() {
@@ -19,9 +24,9 @@ public:
 	}
 
 	template <typename OBJ>
-	void AddObjects(int x, int y, int size) {
+	void AddObjects(int x, int y) {
 		OBJ* objects = new OBJ();
-		objects->BuildObject();
+		objects->SetPosition(XMFLOAT2(x, y));
 		m_objects.emplace_back(objects);
 	}
 
@@ -29,10 +34,13 @@ public:
 		m_objects.emplace_back(obj);
 	}
 
-private:
-	void SetShader();
+protected:
+	virtual void SetShader();
+	virtual void CreateVertexBuffer();
+
+protected:
+	bool ReadFile(char* filename, std::string* target);
 	GLuint CompileShaders(char* filenameVS, char* filenameFS);
 	void AddShader(GLuint ShaderProgram, const char* pShaderText, GLenum ShaderType);
-	bool ReadFile(char* filename, std::string* target);
 };
 
