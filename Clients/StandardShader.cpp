@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "assert.h"
 #include "LoadPng.h"
+#include "Camera.h"
 #include "StandardShader.h"
 
 StandardShader::StandardShader()
@@ -8,7 +9,6 @@ StandardShader::StandardShader()
 	SetShader();
 	SetTexture();
 	CreateVertexBuffer();
-	m_camera = new Camera();
 }
 
 StandardShader::~StandardShader()
@@ -22,11 +22,10 @@ void StandardShader::SetShader()
 
 void StandardShader::SetTexture()
 {
-	int texture = CreateTexture("./Image/TX_Player.png", GL_NEAREST);
+	int texture = CreateTexture("./Image/TX_Grass.png", GL_NEAREST);
 	m_textures.emplace_back(texture);
-
-
-	texture = CreateTexture("./Image/TX_Grass.png", GL_NEAREST);
+	
+	texture = CreateTexture("./Image/TX_Player.png", GL_NEAREST);
 	m_textures.emplace_back(texture);
 }
 
@@ -116,7 +115,7 @@ void StandardShader::CreateVertexBuffer()
 	delete[] verticesPosUV;
 }
 
-void StandardShader::Draw(ObjectData data)
+void StandardShader::Draw(ObjectData data, const Camera* camera)
 {
 	glUseProgram(m_shaderIndex);
 
@@ -124,7 +123,7 @@ void StandardShader::Draw(ObjectData data)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	int projectionLoc = glGetUniformLocation(m_shaderIndex, "u_Projection");
-	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, &m_camera->m_ProjView[0][0]);
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, &camera->m_ProjView[0][0]);
 
 	int defaultPos = glGetAttribLocation(m_shaderIndex, "a_DefaultPos");
 	int texCoord = glGetAttribLocation(m_shaderIndex, "a_TexCoord");

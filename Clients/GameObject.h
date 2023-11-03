@@ -1,5 +1,5 @@
 #pragma once
-
+class Camera;
 class GameObject
 {
 public:
@@ -7,11 +7,12 @@ public:
 	GameObject(XMFLOAT2 pos, float size);
 	~GameObject();
 
-	XMFLOAT2 GetPos();
-	float GetSize();
+	XMFLOAT2 GetPos() { return m_pos; }
+	float GetSize() { return m_size; };
+	virtual Camera* getCamera() { return nullptr; }
 
 	virtual ObjectData GetObjectData();
-	virtual void UpdateTransform() {};
+	virtual void UpdateTransform(double ElapsedTime) {};
 
 	void SetSize(float size) { m_size = size; }
 	void SetPosition(XMFLOAT2 pos) { m_pos = pos; }
@@ -29,13 +30,7 @@ protected:
 	float m_size;
 	GLuint m_vertexBufferObject;
 	GLuint m_TransformBufferObject;
-};
 
-class SquareObject : public GameObject
-{
-private:
-	Camera* m_camera;
-public:
-	SquareObject();
-	virtual void UpdateTransform();
+protected:
+	float m_speed;
 };

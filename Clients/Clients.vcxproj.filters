@@ -40,6 +40,9 @@
     <Filter Include="LoadPNG">
       <UniqueIdentifier>{418f86fa-da02-448f-aefe-05f3ec567c88}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{52a08b7d-13f5-4318-96bd-109e3c75a4b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -84,6 +87,9 @@
     <ClInclude Include="LoadPng.h">
       <Filter>LoadPNG</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -127,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="LoadPng.cpp">
       <Filter>LoadPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

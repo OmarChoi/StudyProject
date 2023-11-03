@@ -8,6 +8,7 @@ public:
 	GameFrameWork();
 	~GameFrameWork();
 
+	chrono::high_resolution_clock::time_point m_lastTime;
 public:
 	void KeyInput(unsigned char key, KEY_STATE state);
 	void MouseInput(int button, int state, int x, int y);

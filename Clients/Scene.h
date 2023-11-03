@@ -6,7 +6,7 @@ class Scene
 public:
 	virtual void KeyInput(unsigned char key, KEY_STATE state);
 	virtual void MouseInput(int button, int state, int x, int y);
-	virtual void RenderScene();
+	virtual void RenderScene(double ElapsedTime);
 	virtual void BuildObject();
 
 	template <typename OBJ>

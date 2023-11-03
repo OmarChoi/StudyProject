@@ -1,11 +1,10 @@
 #pragma once
 class GameObject;
-
+class Camera;
 class Shader
 {
 protected:
 	vector<GameObject*> m_objects;
-	Camera* m_camera;
 
 	GLuint m_shaderIndex;
 	GLuint m_vertexBufferObject;
@@ -15,8 +14,8 @@ public:
 	Shader();
 	virtual ~Shader();
 
-	void Render();
-	virtual void Draw(ObjectData data);
+	void Render(double ElapsedTime, const Camera* camera = nullptr);
+	virtual void Draw(ObjectData data, const Camera* camera);
 
 	template <typename OBJ>
 	void BuildObject() {

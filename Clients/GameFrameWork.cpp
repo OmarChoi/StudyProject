@@ -19,7 +19,7 @@ GameFrameWork::GameFrameWork()
 	m_scene[ST_INGAME] = new InGameScene();
 
 	m_sceneType = ST_INGAME;
-
+	m_lastTime = chrono::high_resolution_clock::now();
 	BuildObject();
 }
 
@@ -29,9 +29,13 @@ GameFrameWork::~GameFrameWork()
 
 void GameFrameWork::RenderScene()
 {
+	auto currentTime = chrono::high_resolution_clock::now();
+	double ElapsedTime = chrono::duration_cast<std::chrono::milliseconds>(currentTime - m_lastTime).count();
+	m_lastTime = currentTime;
+	cout << (double)ElapsedTime << endl;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	m_scene[m_sceneType]->RenderScene();
+	m_scene[m_sceneType]->RenderScene(ElapsedTime);
 	renderBitmapString(0, 10, GLUT_BITMAP_TIMES_ROMAN_24, "Hello, OpenGL!");
 }
 

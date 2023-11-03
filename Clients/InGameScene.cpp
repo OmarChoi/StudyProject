@@ -1,13 +1,9 @@
 #include "stdafx.h"
-#include "InGameScene.h"
 #include "Shader.h"
-#include "StandardShader.h"
-#include "GameObject.h"
 #include "Player.h"
-
-constexpr float speed = 0.2;
-array<float, 4> deltaX{ -speed, 0, speed, 0 };
-array<float, 4> deltaY{ 0, speed, 0, -speed };
+#include "GameObject.h"
+#include "InGameScene.h"
+#include "StandardShader.h"
 
 InGameScene::InGameScene()
 {
@@ -30,16 +26,16 @@ void InGameScene::KeyInput(unsigned char key, KEY_STATE state)
 		{
 			// ¹æÇâÅ°
 		case GLUT_KEY_UP:
-			m_myCharacter->AddPosition(deltaX[DIR_UP], deltaY[DIR_UP]);
+			m_myCharacter->AddKeyInput(DIR_UP);
 			break;
 		case GLUT_KEY_DOWN:
-			m_myCharacter->AddPosition(deltaX[DIR_DOWN], deltaY[DIR_DOWN]);
+			m_myCharacter->AddKeyInput(DIR_DOWN);
 			break;
 		case GLUT_KEY_LEFT:
-			m_myCharacter->AddPosition(deltaX[DIR_LEFT], deltaY[DIR_LEFT]);
+			m_myCharacter->AddKeyInput(DIR_LEFT);
 			break;
 		case GLUT_KEY_RIGHT:
-			m_myCharacter->AddPosition(deltaX[DIR_RIGHT], deltaY[DIR_RIGHT]);
+			m_myCharacter->AddKeyInput(DIR_RIGHT);
 			break;
 
 			// attack
@@ -47,7 +43,7 @@ void InGameScene::KeyInput(unsigned char key, KEY_STATE state)
 		{
 			int randX = 2.f * (((float)rand() / (float)RAND_MAX) - 0.5f) * g_WindowSizeX;
 			int randY = 2.f * (((float)rand() / (float)RAND_MAX) - 0.5f) * g_WindowSizeY;
-			AddObjects<SquareObject>(randX, randY);
+			AddObjects<Player>(randX, randY);
 		}
 			break;
 
@@ -62,12 +58,16 @@ void InGameScene::KeyInput(unsigned char key, KEY_STATE state)
 		switch (key)
 		{
 		case GLUT_KEY_UP:
+			m_myCharacter->RemoveKeyInput(DIR_UP);
 			break;
 		case GLUT_KEY_DOWN:
+			m_myCharacter->RemoveKeyInput(DIR_DOWN);
 			break;
 		case GLUT_KEY_LEFT:
+			m_myCharacter->RemoveKeyInput(DIR_LEFT);
 			break;
 		case GLUT_KEY_RIGHT:
+			m_myCharacter->RemoveKeyInput(DIR_RIGHT);
 			break;
 		}
 	}
@@ -102,19 +102,19 @@ void InGameScene::MouseInput(int button, int state, int x, int y)
 	}
 }
 
-void InGameScene::RenderScene()
+void InGameScene::RenderScene(double ElapsedTime)
 {
-	m_shader->Render();
+	m_shader->Render(ElapsedTime, m_myCharacter->getCamera());
 }
 
 void InGameScene::BuildObject()
 {
-	GameObject* object2 = new GameObject();
-	object2->SetSize(400000);
-	m_shader->AddObjects(object2);
+	GameObject* object = new GameObject();
+	object->SetSize(400'000'0);
+	m_shader->AddObjects(object);
 
-	SquareObject* objects = new SquareObject();
-	m_myCharacter = static_cast<GameObject*>(objects);
-	m_shader->AddObjects(objects);
+	Player* player = new Player();
+	m_myCharacter = player;
+	m_shader->AddObjects(player);
 
 }

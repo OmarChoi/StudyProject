@@ -9,7 +9,7 @@ void Scene::MouseInput(int button, int state, int x, int y)
 {
 }
 
-void Scene::RenderScene()
+void Scene::RenderScene(double ElapsedTime)
 {
 }
 

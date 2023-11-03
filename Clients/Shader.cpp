@@ -20,7 +20,7 @@ Shader::~Shader()
 	}
 }
 
-void Shader::Draw(ObjectData data)
+void Shader::Draw(ObjectData data, const Camera* camera)
 {
 
 	glUseProgram(m_shaderIndex);
@@ -40,12 +40,12 @@ void Shader::Draw(ObjectData data)
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void Shader::Render()
+void Shader::Render(double ElapsedTime, const Camera* camera)
 {
 	for (auto& p : m_objects) {
-		p->UpdateTransform();
+		p->UpdateTransform(ElapsedTime);
 		ObjectData data = p->GetObjectData();
-		Draw(data);
+		Draw(data, camera);
 	}
 }
 

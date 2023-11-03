@@ -16,6 +16,6 @@ protected:
 protected:
 	virtual void SetShader();
 	virtual void SetTexture();
-	virtual void Draw(ObjectData data);
+	virtual void Draw(ObjectData data, const Camera* camera);
 };
 
