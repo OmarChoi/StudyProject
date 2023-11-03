@@ -47,7 +47,6 @@ int main(int argc, char **argv)
 	glutInitWindowSize(g_WindowSizeX, g_WindowSizeY);
 	glutCreateWindow("Studying_Client");
 
-	glOrtho(0, g_WindowSizeX, 0, g_WindowSizeY, -1, 1);
 	glewInit();
 	g_GameFrameWork = new GameFrameWork();
 

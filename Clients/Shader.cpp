@@ -43,6 +43,7 @@ void Shader::Draw(ObjectData data)
 void Shader::Render()
 {
 	for (auto& p : m_objects) {
+		p->UpdateTransform();
 		ObjectData data = p->GetObjectData();
 		Draw(data);
 	}

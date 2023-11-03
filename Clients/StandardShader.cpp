@@ -8,6 +8,7 @@ StandardShader::StandardShader()
 	SetShader();
 	SetTexture();
 	CreateVertexBuffer();
+	m_camera = new Camera();
 }
 
 StandardShader::~StandardShader()
@@ -21,7 +22,11 @@ void StandardShader::SetShader()
 
 void StandardShader::SetTexture()
 {
-	int texture = CreateTexture("./Image/player.png", GL_NEAREST);
+	int texture = CreateTexture("./Image/TX_Player.png", GL_NEAREST);
+	m_textures.emplace_back(texture);
+
+
+	texture = CreateTexture("./Image/TX_Grass.png", GL_NEAREST);
 	m_textures.emplace_back(texture);
 }
 
@@ -118,6 +123,9 @@ void StandardShader::Draw(ObjectData data)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	int projectionLoc = glGetUniformLocation(m_shaderIndex, "u_Projection");
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, &m_camera->m_ProjView[0][0]);
+
 	int defaultPos = glGetAttribLocation(m_shaderIndex, "a_DefaultPos");
 	int texCoord = glGetAttribLocation(m_shaderIndex, "a_TexCoord");
 	glEnableVertexAttribArray(defaultPos);
@@ -133,14 +141,14 @@ void StandardShader::Draw(ObjectData data)
 	int objectPos = glGetUniformLocation(m_shaderIndex, "u_ObjectPos");
 	int time = glGetUniformLocation(m_shaderIndex, "u_Time");
 	int size = glGetUniformLocation(m_shaderIndex, "u_Size");
-	glUniform2f(objectPos, data.m_pos.x / g_WindowSizeX, data.m_pos.y / g_WindowSizeY);
+	glUniform2f(objectPos, data.m_pos.x, data.m_pos.y);
 	glUniform1f(time, 0.0f);
 	glUniform1f(size, data.m_size);
 
 	GLuint samplerULoc = glGetUniformLocation(m_shaderIndex, "u_TexSampler");
 	glUniform1i(samplerULoc, 0);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_textures[0]);
+	glBindTexture(GL_TEXTURE_2D, m_textures[data.m_type]);
 
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glDisableVertexAttribArray(defaultPos);

@@ -10,7 +10,7 @@ public:
 	XMFLOAT2 GetPos();
 	float GetSize();
 
-	virtual ObjectData GetObjectData() = 0;
+	virtual ObjectData GetObjectData();
 	virtual void UpdateTransform() {};
 
 	void SetSize(float size) { m_size = size; }
@@ -22,6 +22,7 @@ public:
 	}
 
 protected:
+	CHARACTER_TYPE m_type;
 	XMFLOAT2 m_pos;
 	XMFLOAT4 m_color;
 	XMFLOAT2 m_posTransform;
@@ -32,8 +33,9 @@ protected:
 
 class SquareObject : public GameObject
 {
+private:
+	Camera* m_camera;
 public:
 	SquareObject();
-	virtual ObjectData GetObjectData();
 	virtual void UpdateTransform();
 };

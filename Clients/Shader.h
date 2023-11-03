@@ -5,10 +5,12 @@ class Shader
 {
 protected:
 	vector<GameObject*> m_objects;
-	GLuint m_shaderIndex;
+	Camera* m_camera;
 
+	GLuint m_shaderIndex;
 	GLuint m_vertexBufferObject;
 	GLuint m_TransformBufferObject;
+
 public:
 	Shader();
 	virtual ~Shader();

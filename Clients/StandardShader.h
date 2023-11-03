@@ -17,6 +17,5 @@ protected:
 	virtual void SetShader();
 	virtual void SetTexture();
 	virtual void Draw(ObjectData data);
-
 };
 

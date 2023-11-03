@@ -5,8 +5,9 @@
 #include "GameObject.h"
 #include "Player.h"
 
-array<int, 4> deltaX{ -5, 0, 5, 0 };
-array<int, 4> deltaY{ 0, 5, 0, -5 };
+constexpr float speed = 0.2;
+array<float, 4> deltaX{ -speed, 0, speed, 0 };
+array<float, 4> deltaY{ 0, speed, 0, -speed };
 
 InGameScene::InGameScene()
 {
@@ -108,7 +109,12 @@ void InGameScene::RenderScene()
 
 void InGameScene::BuildObject()
 {
+	GameObject* object2 = new GameObject();
+	object2->SetSize(400000);
+	m_shader->AddObjects(object2);
+
 	SquareObject* objects = new SquareObject();
 	m_myCharacter = static_cast<GameObject*>(objects);
 	m_shader->AddObjects(objects);
+
 }

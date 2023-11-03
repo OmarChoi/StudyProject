@@ -1,16 +1,12 @@
-#version 330
-
-layout(location=0) out vec4 FragColor;
+#version 330 core
 
 in vec2 v_Texcoord;
+out vec4 FragColor;
 
-uniform float u_Time;
 uniform sampler2D u_TexSampler;
 
 void main()
-{	
-	float x =v_Texcoord.x / 11.0;
-	float y =v_Texcoord.y / 6.0;
-	vec2 newTexPos = vec2(x, y);
-	FragColor = texture(u_TexSampler, newTexPos);
+{
+    vec4 texColor = texture(u_TexSampler, v_Texcoord);
+    FragColor = texColor;
 }
